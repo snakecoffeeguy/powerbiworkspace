@@ -1,0 +1,25 @@
+import networkx as nx
+from pyvis.network import Network
+
+# Criação do grafo simples
+G = nx.Graph()
+notas = ['Nota1', 'Nota2', 'Nota3', 'Nota4']
+for nota in notas:
+    G.add_node(nota, title=f"Conteúdo de {nota}", label=nota)
+
+# Conexões entre as notas
+conexoes = [
+    ('Nota1', 'Nota2'),
+    ('Nota1', 'Nota3'),
+    ('Nota2', 'Nota4'),
+    ('Nota3', 'Nota4')
+]
+G.add_edges_from(conexoes)
+
+# Configuração do PyVis
+net = Network(height='750px', width='100%', bgcolor='#222222', font_color='white')
+net.from_nx(G)
+net.toggle_physics(True)
+
+# Forçando notebook=False para indicar que não está em ambiente de notebook
+net.show('grafico_obsidian.html', notebook=False)
